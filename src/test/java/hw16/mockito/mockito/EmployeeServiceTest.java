@@ -18,7 +18,6 @@ public class EmployeeServiceTest {
     private EmployeeService employeeService;
     @Test
     public void addTest() {
-//        EmployeeService employeeService = new EmployeeServiceImpl();
         String firstName = "firstName";
         String secondName = "secondName";
         int department = 1;
@@ -51,6 +50,5 @@ public class EmployeeServiceTest {
     @Test
     public void  findNotNull(){
         assertThrows(RuntimeException.class, ()-> employeeService.find("","", 1, 0));
-
     }
 }

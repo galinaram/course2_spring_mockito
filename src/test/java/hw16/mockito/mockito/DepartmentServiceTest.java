@@ -11,16 +11,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.internal.matchers.Null;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 public class DepartmentServiceTest {
@@ -36,10 +36,6 @@ public class DepartmentServiceTest {
     public void setUp(){
         Mockito.when(employeeServiceMock.fullList()).thenReturn(List.of(employee1, employee2, employee3));
 
-    }
-    @Test
-    public void getDepartmentTest(){
-        List<Employee> getDepartmentTest = new ArrayList<>(departmentService.getDepartment(1));
     }
     @Test
     public void getMinSalaryInDepartmentTest(){
@@ -59,5 +55,14 @@ public class DepartmentServiceTest {
         Map<Integer, List<Employee>> fullDep = departmentService.getFullDep();
 
         assertThat(fullListTest).containsExactlyInAnyOrderEntriesOf(fullDep);
+    }
+
+    @Test
+    public void  getMinSalaryInDepartmentNotNull(){
+        assertThrows(EmployeeNotFoundException.class, ()->departmentService.getMinSalaryInDepartment(100));
+    }
+    @Test
+    public void  getMaxSalaryInDepartmentNotNull(){
+        assertThrows(EmployeeNotFoundException.class, ()->departmentService.getMaxSalaryInDepartment(100));
     }
 }
